@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ERegistrar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<section class="container">
+    <div class="columns is-centered is-vcentered is-mobile">
+        <div class="column has-text-centered is-four-fifths" th:object="${searchObject}">
+            <div th:replace="fragments/searchBar :: searchBar(newStudentForm, @{'~/student/search'}, ${searchObject}, ${_q})"></div>
+            <div class="is-flex">
+                <div style="display:flex; flex:1;">
+                    <span class="title is-vcentered is-size-4">Student list: </span>
+                </div>
+                <div class="buttons is-right">
+                    <a class="button is-primary is-active" th:href="@{~/student/new}">
+                        <span class="icon is-small">
+                          <i class="fas fa-plus"></i>
+                        </span>
+                        <span>Add Student</span>
+                    </a>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="table is-fullwidth is-hoverable is-striped">
+                    <thead>
+                    <tr>
+                        <th><abbr title="Number">#</abbr></th>
+                        <th><abbr title="Full-name">Full name</abbr></th>
+                        <th><abbr title="StudentNumber">Student Number</abbr></th>
+                        <th><abbr title="CGPA">CGPA</abbr></th>
+                        <th><abbr title="EnrollmentDate">Enrollment Date</abbr></th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student,iterStat : ${students}">
+                        <th scope="row" th:text="${iterStat.count}"></th>
+                        <td th:text="${student.lastName + ', ' + student.firstName + ' ' + student.middleName}"></td>
+                        <td th:text="${student.number}"></td>
+                        <td th:text="${student.cgpa}"></td>
+                        <td th:text="${student.dateOfEnrollment}"></td>
+                        <td><a th:href="@{'/student/edit/{id}'(id=${student.id})}">Edit</a></td>
+                        <td>
+                            <a data-toggle="modal" data-target="#confirmDeleteStudentModal" th:href="@{'/student/delete/' + ${student.id}}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+</body>
+</html>

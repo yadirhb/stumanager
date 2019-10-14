@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="searchBar(formId, action, object, _q)">
+    <form th:id="${formId}" method="get" th:action="${action}" th:object="${object}">
+        <div class="field is-grouped">
+            <p class="control is-expanded">
+                <input class="input" type="text" name="_q" th:value="${_q}" placeholder="eg. Something interesting">
+            </p>
+            <div class="control">
+                <button class="button is-link">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
