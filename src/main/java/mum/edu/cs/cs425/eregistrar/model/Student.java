@@ -40,6 +40,9 @@ public class Student {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfEnrollment;
 
+    @Column(nullable = false)
+    private Boolean isInternational = true;
+
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
     private Transcript transcript;
 
